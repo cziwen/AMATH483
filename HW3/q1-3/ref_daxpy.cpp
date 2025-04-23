@@ -13,10 +13,9 @@ void daxpy(double a, const std::vector<double>& x, std::vector<double>& y) {
 }
 
 // 测试并输出每秒浮点运算次数 FLOPs
-void test_daxpy(int n) {
+void test_daxpy(int n, int ntrials) {
     std::vector<double> x(n), y(n);
     double a = 2.5;
-    const int ntrials = 5;
     long double elapsed_time = 0.L;
     long double avg_time;
     auto start = std::chrono::high_resolution_clock::now();
@@ -40,11 +39,11 @@ void test_daxpy(int n) {
               << ", GFLOPs = " << flops / 1e9 << std::endl;
 }
 
-// 主函数：从 n=2 到 n=512 测试
-int main() {
-    for (int n = 2; n <= 512; n *= 2) { // n = 2, 4, 8, ..., 512
-        test_daxpy(n);
-    }
+// // 主函数：从 n=2 到 n=512 测试
+// int main() {
+//     for (int n = 2; n <= 512; n *= 2) { // n = 2, 4, 8, ..., 512
+//         test_daxpy(n);
+//     }
 
-    return 0;
-}
+//     return 0;
+// }

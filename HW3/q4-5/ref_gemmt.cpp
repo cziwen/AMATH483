@@ -78,10 +78,10 @@ void test_gemm(int n, int ntrial) {
               << std::endl;
 }
 
-int main() {
-    int ntrial = 5;
-    for (int n = 2; n <= 512; n *= 2) {
-        test_gemm(n, ntrial);
-    }
-    return 0;
-}
+// int main() {
+//     int ntrial = 5;
+//     for (int n = 2; n <= 512; n *= 2) {
+//         test_gemm(n, ntrial);
+//     }
+//     return 0;
+// }

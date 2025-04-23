@@ -27,12 +27,12 @@ void dgemv(double a, const std ::vector<std ::vector<double>> &A,
 }
 
 // 测试并输出 Level-2 BLAS dgemv 性能
-void test_dgemv(int n)
+void test_dgemv(int n, int ntrials)
 {
     std::vector<std::vector<double>> A(n, std::vector<double>(n));
     std::vector<double> x(n), y(n);
     double alpha = 2.5, beta = 0.5;
-    const int ntrials = 5;
+    // const int ntrials = 5;
     long double elapsed_time = 0.L;
     long double avg_time;
     auto start = std::chrono::high_resolution_clock::now();
@@ -69,12 +69,12 @@ void test_dgemv(int n)
               << ", GFLOPs = " << flops / 1e9 << std::endl;
 }
 
-int main()
-{
-    for (int n = 2; n <= 512; n *= 2) // n = 2, 4, 8, ..., 512
-    {
-        test_dgemv(n);
-    }
+// int main()
+// {
+//     for (int n = 2; n <= 512; n *= 2) // n = 2, 4, 8, ..., 512
+//     {
+//         test_dgemv(n);
+//     }
 
-    return 0;
-}
+//     return 0;
+// }
