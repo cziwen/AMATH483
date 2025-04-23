@@ -4,8 +4,7 @@
 #include <random>
 #include <chrono>
 #include <cmath>
-// g++ -std=c++17 -fPIC -shared q1-3/ref_daxpy.cpp q1-3/ref_dgemv.cpp q1-3/ref_dgemm.cpp q4-5/ref_axpyt.cpp q4-5/ref_gemvt.cpp q4-5/ref_gemmt.cpp -o librefBLAS.so
-// g++ testHW3.cpp -L. -lrefBLAS -o test_exec
+
 
 
 int main() {
