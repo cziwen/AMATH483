@@ -7,23 +7,19 @@
 
 template <typename T>
 void gemv(T a, const std ::vector<std ::vector<T>> &A,
-           const std ::vector<T> &x, T b, std ::vector<T> &y)
+          const std ::vector<T> &x, T b, std ::vector<T> &y)
 {
-    // 计算 a * A * x
-    std::vector<T> aAx(A.size(), 0.0);
-    for (size_t i = 0; i < A.size(); ++i)
-    {
-        for (size_t j = 0; j < A[i].size(); ++j)
-        {
-            aAx[i] += A[i][j] * x[j];
-        }
-        aAx[i] *= a;
-    }
+    size_t m = A.size();
+    size_t n = x.size();
 
-    // 计算整体
-    for (size_t i = 0; i < y.size(); ++i)
+    for (size_t i = 0; i < m; ++i)
     {
-        y[i] = aAx[i] + b * y[i];
+        T temp = T(0);
+        for (size_t j = 0; j < n; ++j)
+        {
+            temp += A[i][j] * x[j];
+        }
+        y[i] = a * temp + b * y[i];
     }
 }
 
@@ -37,7 +33,7 @@ void test_gemv(int n, int ntrials)
     long double elapsed_time = 0.L;
     long double avg_time;
     auto start = std::chrono::high_resolution_clock::now();
-    auto stop  = std::chrono::high_resolution_clock::now();
+    auto stop = std::chrono::high_resolution_clock::now();
     std::chrono::nanoseconds duration;
 
     // 随机初始化 A, x, y
@@ -53,11 +49,12 @@ void test_gemv(int n, int ntrials)
         }
     }
 
-    for (int t = 0; t < ntrials; ++t) {
+    for (int t = 0; t < ntrials; ++t)
+    {
         std::vector<double> y_copy = y;
         start = std::chrono::high_resolution_clock::now();
         gemv(alpha, A, x, beta, y_copy);
-        stop  = std::chrono::high_resolution_clock::now();
+        stop = std::chrono::high_resolution_clock::now();
         duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
         elapsed_time += (duration.count() * 1.e-9);
     }

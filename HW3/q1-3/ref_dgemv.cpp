@@ -5,24 +5,43 @@
 #include <chrono>
 #include <cmath>
 
-void dgemv(double a, const std ::vector<std ::vector<double>> &A,
-           const std ::vector<double> &x, double b, std ::vector<double> &y)
-{
-    // 计算 a * A * x
-    std::vector<double> aAx(A.size(), 0.0);
-    for (size_t i = 0; i < A.size(); ++i)
-    {
-        for (size_t j = 0; j < A[i].size(); ++j)
-        {
-            aAx[i] += A[i][j] * x[j];
-        }
-        aAx[i] *= a;
-    }
+// void dgemv(double a, const std ::vector<std ::vector<double>> &A,
+//            const std ::vector<double> &x, double b, std ::vector<double> &y)
+// {
+//     // 计算 a * A * x
+//     size_t m = A.size();
+//     size_t n = A[0].size();
 
-    // 计算整体
-    for (size_t i = 0; i < y.size(); ++i)
+//     std::vector<double> aAx(m, 0.0);
+//     for (size_t i = 0; i < m; ++i)
+//     {
+//         for (size_t j = 0; j < n; ++j)
+//         {
+//             aAx[i] += A[i][j] * x[j];
+//         }
+//         aAx[i] *= a;
+//     }
+
+//     // 计算整体
+//     for (size_t i = 0; i < y.size(); ++i)
+//     {
+//         y[i] = aAx[i] + b * y[i];
+//     }
+// }
+void dgemv(double a, const std::vector<std::vector<double>> &A,
+           const std::vector<double> &x, double b, std::vector<double> &y)
+{
+    size_t m = A.size();
+    size_t n = x.size();
+
+    for (size_t i = 0; i < m; ++i)
     {
-        y[i] = aAx[i] + b * y[i];
+        double temp = 0.0;
+        for (size_t j = 0; j < n; ++j)
+        {
+            temp += A[i][j] * x[j];
+        }
+        y[i] = a * temp + b * y[i];
     }
 }
 
@@ -36,7 +55,7 @@ void test_dgemv(int n, int ntrials)
     long double elapsed_time = 0.L;
     long double avg_time;
     auto start = std::chrono::high_resolution_clock::now();
-    auto stop  = std::chrono::high_resolution_clock::now();
+    auto stop = std::chrono::high_resolution_clock::now();
     std::chrono::nanoseconds duration;
 
     // 随机初始化 A, x, y
@@ -52,11 +71,12 @@ void test_dgemv(int n, int ntrials)
         }
     }
 
-    for (int t = 0; t < ntrials; ++t) {
+    for (int t = 0; t < ntrials; ++t)
+    {
         std::vector<double> y_copy = y;
         start = std::chrono::high_resolution_clock::now();
         dgemv(alpha, A, x, beta, y_copy);
-        stop  = std::chrono::high_resolution_clock::now();
+        stop = std::chrono::high_resolution_clock::now();
         duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
         elapsed_time += (duration.count() * 1.e-9);
     }
@@ -71,9 +91,10 @@ void test_dgemv(int n, int ntrials)
 
 // int main()
 // {
+//     int ntrials = 5; // 试验次数
 //     for (int n = 2; n <= 512; n *= 2) // n = 2, 4, 8, ..., 512
 //     {
-//         test_dgemv(n);
+//         test_dgemv(n, ntrials); // 5 次试验
 //     }
 
 //     return 0;

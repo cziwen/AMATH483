@@ -8,8 +8,8 @@
 template <typename T>
 void axpy(T a, const std::vector<T> &x, std::vector<T> &y)
 {
-    for (size_t i = 0; i < x.size(); ++i)
-    {
+    size_t n = x.size();
+    for (size_t i = 0; i < n; ++i) {
         y[i] += a * x[i];
     }
 }

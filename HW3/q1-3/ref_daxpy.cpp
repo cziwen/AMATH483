@@ -7,7 +7,8 @@
 
 // daxpy 实现：y = a * x + y
 void daxpy(double a, const std::vector<double>& x, std::vector<double>& y) {
-    for (size_t i = 0; i < x.size(); ++i) {
+    size_t n = x.size();
+    for (size_t i = 0; i < n; ++i) {
         y[i] += a * x[i];
     }
 }
@@ -39,10 +40,11 @@ void test_daxpy(int n, int ntrials) {
               << ", GFLOPs = " << flops / 1e9 << std::endl;
 }
 
-// // 主函数：从 n=2 到 n=512 测试
+// 主函数：从 n=2 到 n=512 测试
 // int main() {
+//     int ntrials = 5; // 试验次数
 //     for (int n = 2; n <= 512; n *= 2) { // n = 2, 4, 8, ..., 512
-//         test_daxpy(n);
+//         test_daxpy(n, ntrials); // 5 次试验
 //     }
 
 //     return 0;
