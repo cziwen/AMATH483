@@ -9,3 +9,10 @@ g++ -std=c++17 -fPIC -shared q1-3/ref_daxpy.cpp q1-3/ref_dgemv.cpp q1-3/ref_dgem
 
 Compile the testHW3.cpp with following command to specify using the .so you just created:
 g++ -std=c++17 testHW3.cpp -L. -lrefBLAS -o test_exec
+
+
+You may vary the x,y,A,B,C used in testHW3.cpp.
+
+
+If you have own test functions, run following command:
+g++ -std=c++17 <yourTest.ccp> -L. -lrefBLAS -o <nameYouLike>

@@ -8,7 +8,8 @@
 
 
 int main() {
-    // 示例数据
+    // Data initialization ==========================
+    // You may modify the data here for testing, Each function will be tested with the same data.
     const std::vector<double> baseX = std::vector<double>{1.0, 2.0, 3.0};
     const std::vector<double> baseY = std::vector<double>{4.0, 5.0, 6.0};
     const std::vector<std::vector<double> > baseA = std::vector<std::vector<double> >{
@@ -28,6 +29,12 @@ int main() {
     std::vector<std::vector<double> > B = baseB;
     std::vector<std::vector<double> > C = std::vector<std::vector<double> >(3, std::vector<double>(3, 0.0));
 
+
+
+
+
+
+    // Actual function calls ==========================
     // 调用模板函数 axpy
     x = baseX;
     y = baseY;
