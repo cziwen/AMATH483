@@ -11,10 +11,15 @@ double f_prime(double x) {
     return 1.0 / x - 0.25 * x;
 }
 
+
 double integrand(double x) {
     double fp = f_prime(x);
     return std::sqrt(1 + fp * fp);
 }
+
+// inline double integrand(double x) {
+//     return std::sqrt(1.0 + std::pow(1.0/x - x/4.0, 2));
+// }
 
 int main(int argc, char** argv) {
     MPI_Init(&argc, &argv);

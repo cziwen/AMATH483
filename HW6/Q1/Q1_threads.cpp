@@ -7,12 +7,18 @@
 #include <iomanip>  
 using namespace std;
 
-double fprime(double x){
-    return 1.0/x - x/4.0;
+// double fprime(double x){
+//     return 1.0/x - x/4.0;
+// }
+// double integrand(double x){
+//     return sqrt(1 + fprime(x)*fprime(x));
+// }
+
+
+inline double integrand(double x) {
+    return std::sqrt(1.0 + std::pow(1.0/x - x/4.0, 2));
 }
-double integrand(double x){
-    return sqrt(1 + fprime(x)*fprime(x));
-}
+
 
 int main(int argc,char** argv){
     if(argc<3){
